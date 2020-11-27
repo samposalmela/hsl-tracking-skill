@@ -1,0 +1,7 @@
+{
+  "utterance": "Next bus",
+  "intent_type": "NexBusIntent",
+  "intent": {
+    "NextBusKeyword": "next bus"
+  }
+}
