@@ -122,7 +122,7 @@ class HslSkill(MycroftSkill):
 
         headsign = second['headsign']
 
-        self.speak_dialog("Second bus leaves at {} {}".format(arrival_time2, headsign))
+        self.speak_dialog("Second bus leaves at {} destination {}".format(arrival_time2, headsign))
 
     # @intent_handler(IntentBuilder('HelloWorldIntent')
     #                 .require('HelloWorldKeyword'))
