@@ -101,7 +101,7 @@ class HslSkill(MycroftSkill):
         # print(arrival_time3,last['headsign'])
 
        
-        self.speak_dialog("Next bus leaves at {}".format(arrival_time))
+        self.speak_dialog("Next bus leaves at {}".format(arrival_time, next['headsign']))
 
     # @intent_handler('HowAreYou.intent')
     # def handle_how_are_you_intent(self, message):
