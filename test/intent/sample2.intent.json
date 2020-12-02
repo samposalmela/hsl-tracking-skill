@@ -1,0 +1,7 @@
+{
+  "utterance": "Second bus",
+  "intent_type": "SecondBusIntent",
+  "intent": {
+    "ThankYouKeyword": "second bus"
+  }
+}
