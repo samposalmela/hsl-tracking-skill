@@ -104,11 +104,25 @@ class HslSkill(MycroftSkill):
        
         self.speak_dialog("Next bus leaves at {} destination {}".format(arrival_time, headsign))
 
-    # @intent_handler('HowAreYou.intent')
-    # def handle_how_are_you_intent(self, message):
-    #     """ This is a Padatious intent handler.
-    #     It is triggered using a list of sample phrases."""
-    #     self.speak_dialog("how.are.you")
+    @intent_handler(IntentBuilder('SecondBusIntent').require('SecondBusKeyword'))
+    def handle_how_are_you_intent(self, message):
+        """ This is a Padatious intent handler.
+        It is triggered using a list of sample phrases."""
+        result = run_query(query) # Execute the query
+        json_output = result # Drill down the dictionary
+        output = json_output['data']
+
+        stop = output['stop']
+        times = stop['stoptimesWithoutPatterns']
+
+        second = times[1]
+
+        conversion = datetime.timedelta(seconds=second['realtimeArrival'])
+        arrival_time2 = str(conversion)
+
+        headsign = second['headsign']
+
+        self.speak_dialog("Second bus leaves at {} {}".format(arrival_time2, headsign))
 
     # @intent_handler(IntentBuilder('HelloWorldIntent')
     #                 .require('HelloWorldKeyword'))
