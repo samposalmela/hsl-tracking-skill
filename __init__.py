@@ -88,6 +88,7 @@ class HslSkill(MycroftSkill):
         #muuttaa sekunnit kellon ajaksi
         conversion = datetime.timedelta(seconds=next['realtimeArrival'])
         arrival_time = str(conversion)
+        headsign = next['headsign']
 
         # conversion = datetime.timedelta(seconds=after['realtimeArrival'])
         # arrival_time2 = str(conversion)
@@ -101,7 +102,7 @@ class HslSkill(MycroftSkill):
         # print(arrival_time3,last['headsign'])
 
        
-        self.speak_dialog("Next bus leaves at {}".format(arrival_time, next['headsign']))
+        self.speak_dialog("Next bus leaves at {}{}".format(arrival_time, headsign))
 
     # @intent_handler('HowAreYou.intent')
     # def handle_how_are_you_intent(self, message):
