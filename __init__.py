@@ -86,6 +86,28 @@ class HslSkill(MycroftSkill):
         headsign = next['headsign']
 
         self.speak_dialog("Next bus leaves at {} destination {}".format(arrival_time, headsign))
+    
+    @intent_handler(IntentBuilder('NextBusIntent').require('NextBusKeyword').require('AfterBusKeyword'))
+    def after_bus_intent(self, message):
+        result = run_query(query) # Execute the query
+        json_output = result # Drill down the dictionary
+        output = json_output['data']
+
+        stop = output['stop']
+        times = stop['stoptimesWithoutPatterns']
+
+        second = times[1]
+
+        conversion = datetime.timedelta(seconds=second['realtimeArrival'])
+        arrival_time2 = str(conversion)
+
+        headsign = second['headsign']
+
+        after = message.data.get('AfterBusKeyword')
+        self.speak("Second bus leaves at {} destination {}".format(arrival_time2, headsign))
+        self.set_context('AfterBusKeyword', after)
+        
+
 
     @intent_handler(IntentBuilder('SecondBusIntent').require('SecondBusKeyword'))
     def second_bus_intent(self, message):
@@ -153,7 +175,7 @@ class HslSkill(MycroftSkill):
         headsign2 = second['headsign']
         headsign3 = third['headsign']
 
-        self.speak_dialog("Next three busses are {} destination {}, {} destination {} and {} destination {}".format(arrival_time1, headsign1,arrival_time2, headsign2,arrival_time3, headsign3))
+        self.speak_dialog("Next three busses are {} destination {}, {} destination {}, and {} destination {}".format(arrival_time1, headsign1,arrival_time2, headsign2,arrival_time3, headsign3))
 
     def stop(self):
         pass

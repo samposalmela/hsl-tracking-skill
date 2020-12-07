@@ -1,0 +1,7 @@
+{
+    "utterance": "After Bus",
+    "intent_type": "AfterBusIntent",
+    "intent": {
+      "NextThreeKeyword": "after bus"
+    }
+  }
