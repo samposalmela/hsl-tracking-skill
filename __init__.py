@@ -69,7 +69,7 @@ class HslSkill(MycroftSkill):
         #my_setting = self.settings.get('my_setting')
         self.load_data_files(dirname(__file__))
 
-    @intent_handler(IntentBuilder().require('NextBusKeyword'))
+    @intent_handler(IntentBuilder('NextBusIntent').require('NextBusKeyword'))
     def next_bus_intent(self, message):
         """ This is an Adapt intent handler, it is triggered by a keyword."""
         result = run_query(query) # Execute the query
@@ -87,7 +87,7 @@ class HslSkill(MycroftSkill):
 
         self.speak_dialog("Next bus leaves at {} destination {}".format(arrival_time, headsign))
     
-    @intent_handler(IntentBuilder().require('NextBusKeyword').require('AfterBusKeyword'))
+    @intent_handler(IntentBuilder('AfterBusIntent').require('NextBusKeyword').require('AfterBusKeyword'))
     def after_bus_intent(self, message):
         result = run_query(query) # Execute the query
         json_output = result # Drill down the dictionary
