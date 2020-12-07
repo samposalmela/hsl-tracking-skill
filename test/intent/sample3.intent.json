@@ -2,6 +2,6 @@
     "utterance": "Third bus",
     "intent_type": "ThirdBusIntent",
     "intent": {
-      "NextBusKeyword": "third bus"
+      "ThirdBusKeyword": "third bus"
     }
   }

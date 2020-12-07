@@ -1,0 +1,7 @@
+{
+    "utterance": "Next Three",
+    "intent_type": "NextThreeBus",
+    "intent": {
+      "NextThreeKeyword": "next three"
+    }
+  }

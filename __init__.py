@@ -125,7 +125,35 @@ class HslSkill(MycroftSkill):
 
         headsign = third['headsign']
 
-        self.speak_dialog("Second bus leaves at {} destination {}".format(arrival_time3, headsign))
+        self.speak_dialog("Third bus leaves at {} destination {}".format(arrival_time3, headsign))
+
+    @intent_handler(IntentBuilder('NextThreeIntent').require('NextThreeKeyword'))
+    def next_three_busses_intent(self, message):
+        """ This is a Padatious intent handler.
+        It is triggered using a list of sample phrases."""
+        result = run_query(query) # Execute the query
+        json_output = result # Drill down the dictionary
+        output = json_output['data']
+
+        stop = output['stop']
+        times = stop['stoptimesWithoutPatterns']
+
+        next = times[0]
+        second = times[1]
+        third = times[2]
+
+        conversion = datetime.timedelta(seconds=next['realtimeArrival'])
+        conversion = datetime.timedelta(seconds=second['realtimeArrival'])
+        conversion = datetime.timedelta(seconds=third['realtimeArrival'])
+        arrival_time1 = str(conversion)
+        arrival_time2 = str(conversion)
+        arrival_time3 = str(conversion)
+
+        headsign1 = next['headsign']
+        headsign2 = second['headsign']
+        headsign3 = third['headsign']
+
+        self.speak_dialog("Next three busses are {} destination {}, {} destination {} and {} destination {}".format(arrival_time1, headsign1,arrival_time2, headsign2,arrival_time3, headsign3))
 
     def stop(self):
         pass
