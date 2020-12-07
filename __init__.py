@@ -87,7 +87,7 @@ class HslSkill(MycroftSkill):
 
         self.speak_dialog("Next bus leaves at {} destination {}".format(arrival_time, headsign))
     
-    @intent_handler(IntentBuilder('AfterBusIntent').require('NextBusKeyword').require('AfterBusKeyword'))
+    @intent_handler(IntentBuilder().require('NextBusKeyword').require('AfterBusKeyword'))
     def after_bus_intent(self, message):
         result = run_query(query) # Execute the query
         json_output = result # Drill down the dictionary
@@ -103,9 +103,9 @@ class HslSkill(MycroftSkill):
 
         headsign = second['headsign']
 
-        after = message.data.get('AfterBusKeyword')
-        self.speak("Second bus leaves at {} destination {}".format(arrival_time2, headsign))
-        self.set_context('AfterBusKeyword', after)
+        after = message.data.get('AfterBusIntent')
+        self.speak("Bus after that leaves at {} destination {}".format(arrival_time2, headsign))
+        self.set_context('AfterBusIntent', after)
         
 
 
