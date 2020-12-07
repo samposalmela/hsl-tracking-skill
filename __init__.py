@@ -79,33 +79,16 @@ class HslSkill(MycroftSkill):
         stop = output['stop']
         times = stop['stoptimesWithoutPatterns']
 
-        #3 seuraavaa bussia
         next = times[0]
-        # after = times[1]
-        # last = times [2]
-
-
-        #muuttaa sekunnit kellon ajaksi
+      
         conversion = datetime.timedelta(seconds=next['realtimeArrival'])
         arrival_time = str(conversion)
         headsign = next['headsign']
 
-        # conversion = datetime.timedelta(seconds=after['realtimeArrival'])
-        # arrival_time2 = str(conversion)
-
-        # conversion = datetime.timedelta(seconds=last['realtimeArrival'])
-        # arrival_time3 = str(conversion)
-
-        #printtaa 3 seuraavaa bussia
-        # print(arrival_time,next['headsign'])
-        # print(arrival_time2,after['headsign'])
-        # print(arrival_time3,last['headsign'])
-
-       
         self.speak_dialog("Next bus leaves at {} destination {}".format(arrival_time, headsign))
 
     @intent_handler(IntentBuilder('SecondBusIntent').require('SecondBusKeyword'))
-    def handle_how_are_you_intent(self, message):
+    def second_bus_intent(self, message):
         """ This is a Padatious intent handler.
         It is triggered using a list of sample phrases."""
         result = run_query(query) # Execute the query
@@ -124,16 +107,25 @@ class HslSkill(MycroftSkill):
 
         self.speak_dialog("Second bus leaves at {} destination {}".format(arrival_time2, headsign))
 
-    # @intent_handler(IntentBuilder('HelloWorldIntent')
-    #                 .require('HelloWorldKeyword'))
-    # def handle_hello_world_intent(self, message):
-    #     """ Skills can log useful information. These will appear in the CLI and
-    #     the skills.log file."""
-    #     self.log.info("There are five types of log messages: "
-    #                   "info, debug, warning, error, and exception.")
-    #     self.speak_dialog("hello.world")
+    @intent_handler(IntentBuilder('ThirdBusIntent').require('ThirdBusKeyword'))
+    def third_bus_intent(self, message):
+        """ This is a Padatious intent handler.
+        It is triggered using a list of sample phrases."""
+        result = run_query(query) # Execute the query
+        json_output = result # Drill down the dictionary
+        output = json_output['data']
 
+        stop = output['stop']
+        times = stop['stoptimesWithoutPatterns']
 
+        third = times[2]
+
+        conversion = datetime.timedelta(seconds=third['realtimeArrival'])
+        arrival_time3 = str(conversion)
+
+        headsign = third['headsign']
+
+        self.speak_dialog("Second bus leaves at {} destination {}".format(arrival_time3, headsign))
 
     def stop(self):
         pass
