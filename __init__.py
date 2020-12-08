@@ -93,6 +93,7 @@ class HslSkill(MycroftSkill):
 
     @intent_handler(IntentBuilder('NextBusIntent').require('NextBusKeyword'))
     def next_bus_intent(self, message):
+        run_query(query)
         self.speak_dialog("Next bus leaves at {} destination {}".format(arrival_time1, headsign1))
     
     #Follow up question to next bus to ask the bus after that
@@ -118,15 +119,17 @@ class HslSkill(MycroftSkill):
 
     @intent_handler(IntentBuilder('SecondBusIntent').require('SecondBusKeyword'))
     def second_bus_intent(self, message):
+        run_query(query)
         self.speak_dialog("Second bus leaves at {} destination {}".format(arrival_time2, headsign2))
 
     @intent_handler(IntentBuilder('ThirdBusIntent').require('ThirdBusKeyword'))
     def third_bus_intent(self, message):
-
+        run_query(query)
         self.speak_dialog("Third bus leaves at {} destination {}".format(arrival_time3, headsign3))
 
     @intent_handler(IntentBuilder('NextThreeIntent').require('NextThreeKeyword'))
     def next_three_busses_intent(self, message):
+        run_query(query)
         self.speak_dialog("Next three busses are {} destination {}, {} destination {}, and {} destination {}".format(arrival_time1, headsign1,arrival_time2, headsign2,arrival_time3, headsign3))
 
     def stop(self):
