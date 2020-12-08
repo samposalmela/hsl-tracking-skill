@@ -52,6 +52,28 @@ query = """
 }
 """
 
+result = run_query(query) # Execute the query
+json_output = result # Drill down the dictionary
+output = json_output['data']
+
+stop = output['stop']
+times = stop['stoptimesWithoutPatterns']
+
+next = times[0]
+second = times[1]
+third = times[2]
+
+conversion1 = datetime.timedelta(seconds=next['realtimeArrival'])
+conversion2 = datetime.timedelta(seconds=second['realtimeArrival'])
+conversion3 = datetime.timedelta(seconds=third['realtimeArrival'])
+arrival_time1 = str(conversion1)
+arrival_time2 = str(conversion2)
+arrival_time3 = str(conversion3)
+
+headsign1 = next['headsign']
+headsign2 = second['headsign']
+headsign3 = third['headsign']
+
 class HslSkill(MycroftSkill):
     def __init__(self):
         """ The __init__ method is called when the Skill is first constructed.
@@ -71,110 +93,40 @@ class HslSkill(MycroftSkill):
 
     @intent_handler(IntentBuilder('NextBusIntent').require('NextBusKeyword'))
     def next_bus_intent(self, message):
-        """ This is an Adapt intent handler, it is triggered by a keyword."""
-        result = run_query(query) # Execute the query
-        json_output = result # Drill down the dictionary
-        output = json_output['data']
-
-        stop = output['stop']
-        times = stop['stoptimesWithoutPatterns']
-
-        next = times[0]
-      
-        conversion = datetime.timedelta(seconds=next['realtimeArrival'])
-        arrival_time = str(conversion)
-        headsign = next['headsign']
-
-        self.speak_dialog("Next bus leaves at {} destination {}".format(arrival_time, headsign))
+        self.speak_dialog("Next bus leaves at {} destination {}".format(arrival_time1, headsign1))
     
-    @intent_handler(IntentBuilder('AfterBusIntent').require('NextBusKeyword').require('AfterBusKeyword'))
-    def after_bus_intent(self, message):
-        result = run_query(query) # Execute the query
-        json_output = result # Drill down the dictionary
-        output = json_output['data']
+    #Follow up question to next bus to ask the bus after that
+    # @intent_handler(IntentBuilder('AfterBusIntent').require('NextBusKeyword').require('AfterBusKeyword'))
+    # def after_bus_intent(self, message):
+    #     result = run_query(query) # Execute the query
+    #     json_output = result # Drill down the dictionary
+    #     output = json_output['data']
 
-        stop = output['stop']
-        times = stop['stoptimesWithoutPatterns']
+    #     stop = output['stop']
+    #     times = stop['stoptimesWithoutPatterns']
 
-        second = times[1]
+    #     second = times[1]
 
-        conversion = datetime.timedelta(seconds=second['realtimeArrival'])
-        arrival_time2 = str(conversion)
+    #     conversion = datetime.timedelta(seconds=second['realtimeArrival'])
+    #     arrival_time2 = str(conversion)
 
-        headsign = second['headsign']
+    #     headsign = second['headsign']
 
-        after = message.data.get('AfterBusIntent')
-        self.speak("Bus after that leaves at {} destination {}".format(arrival_time2, headsign))
-        self.set_context('AfterBusIntent', after)
-        
-
+    #     after = message.data.get('AfterBusIntent')
+    #     self.speak("Bus after that leaves at {} destination {}".format(arrival_time2, headsign))
+    #     self.set_context('AfterBusIntent', after)
 
     @intent_handler(IntentBuilder('SecondBusIntent').require('SecondBusKeyword'))
     def second_bus_intent(self, message):
-        """ This is a Padatious intent handler.
-        It is triggered using a list of sample phrases."""
-        result = run_query(query) # Execute the query
-        json_output = result # Drill down the dictionary
-        output = json_output['data']
-
-        stop = output['stop']
-        times = stop['stoptimesWithoutPatterns']
-
-        second = times[1]
-
-        conversion = datetime.timedelta(seconds=second['realtimeArrival'])
-        arrival_time2 = str(conversion)
-
-        headsign = second['headsign']
-
-        self.speak_dialog("Second bus leaves at {} destination {}".format(arrival_time2, headsign))
+        self.speak_dialog("Second bus leaves at {} destination {}".format(arrival_time2, headsign2))
 
     @intent_handler(IntentBuilder('ThirdBusIntent').require('ThirdBusKeyword'))
     def third_bus_intent(self, message):
-        """ This is a Padatious intent handler.
-        It is triggered using a list of sample phrases."""
-        result = run_query(query) # Execute the query
-        json_output = result # Drill down the dictionary
-        output = json_output['data']
 
-        stop = output['stop']
-        times = stop['stoptimesWithoutPatterns']
-
-        third = times[2]
-
-        conversion = datetime.timedelta(seconds=third['realtimeArrival'])
-        arrival_time3 = str(conversion)
-
-        headsign = third['headsign']
-
-        self.speak_dialog("Third bus leaves at {} destination {}".format(arrival_time3, headsign))
+        self.speak_dialog("Third bus leaves at {} destination {}".format(arrival_time3, headsign3))
 
     @intent_handler(IntentBuilder('NextThreeIntent').require('NextThreeKeyword'))
     def next_three_busses_intent(self, message):
-        """ This is a Padatious intent handler.
-        It is triggered using a list of sample phrases."""
-        result = run_query(query) # Execute the query
-        json_output = result # Drill down the dictionary
-        output = json_output['data']
-
-        stop = output['stop']
-        times = stop['stoptimesWithoutPatterns']
-
-        next = times[0]
-        second = times[1]
-        third = times[2]
-
-        conversion = datetime.timedelta(seconds=next['realtimeArrival'])
-        conversion = datetime.timedelta(seconds=second['realtimeArrival'])
-        conversion = datetime.timedelta(seconds=third['realtimeArrival'])
-        arrival_time1 = str(conversion)
-        arrival_time2 = str(conversion)
-        arrival_time3 = str(conversion)
-
-        headsign1 = next['headsign']
-        headsign2 = second['headsign']
-        headsign3 = third['headsign']
-
         self.speak_dialog("Next three busses are {} destination {}, {} destination {}, and {} destination {}".format(arrival_time1, headsign1,arrival_time2, headsign2,arrival_time3, headsign3))
 
     def stop(self):
