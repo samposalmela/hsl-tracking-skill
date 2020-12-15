@@ -1,4 +1,4 @@
-# <img src="https://raw.githack.com/FortAwesome/Font-Awesome/master/svgs/solid/bus.svg" card_color="#D80DE5" width="50" height="50" style="vertical-align:bottom"/> HSL Tracking
+# <img src="https://raw.githack.com/FortAwesome/Font-Awesome/master/svgs/solid/bus.svg" card_color="#D80DE5" width="50" height="50" style="vertical-align:bottom"/> HSL Tracking skill for Mycroft
 Tracking HSL busses
 
 ## About
